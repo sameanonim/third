@@ -13,3 +13,12 @@ class Stack:
         new_node = Node(data)
         new_node.next_node = self.top
         self.top = new_node
+
+    def pop(self):
+        """ Тут удаление элемента """
+        if self.top is None:
+            return None
+        else:
+            data = self.top.data
+            self.top = self.top.next_node
+            return data

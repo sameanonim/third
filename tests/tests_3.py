@@ -18,24 +18,37 @@ class Stack:
         new_node.next_node = self.top
         self.top = new_node
 
-# код тестирования
-class TestNode(unittest.TestCase):
-    def test_init(self):
-        node = Node("Test Data")
-        self.assertEqual(node.data, "Test Data")
-        self.assertIsNone(node.next_node)
+    def pop(self):
+        """ Тут удаление элемента """
+        if self.top is None:
+            return None
+        else:
+            data = self.top.data
+            self.top = self.top.next_node
+            return data
 
+# код тестирования
 class TestStack(unittest.TestCase):
-    def test_init(self):
-        stack = Stack()
-        self.assertIsNone(stack.top)
+    def setUp(self):
+        self.stack = Stack()
 
     def test_push(self):
-        stack = Stack()
-        stack.push("Data 1")
-        self.assertEqual(stack.top.data, "Data 1")
-        stack.push("Data 2")
-        self.assertEqual(stack.top.data, "Data 2")
+        self.stack.push("a")
+        self.assertEqual(self.stack.top.data, "a")
+        self.stack.push("b")
+        self.assertEqual(self.stack.top.data, "b")
 
-if __name__ == '__main__':
+    def test_pop(self):
+        self.stack.push("a")
+        self.stack.push("b")
+        self.assertEqual(self.stack.pop(), "b")
+        self.assertEqual(self.stack.top.data, "a")
+        self.assertEqual(self.stack.pop(), "a")
+        self.assertIsNone(self.stack.pop())
+
+    def test_empty_stack(self):
+        self.assertIsNone(self.stack.pop())
+        self.assertIsNone(self.stack.top)
+
+if __name__ == "__main__":
     unittest.main()
