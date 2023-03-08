@@ -26,6 +26,36 @@ class Stack:
             data = self.top.data
             self.top = self.top.next_node
             return data
+        
+class Queue:
+    """ Это список """
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def __len__(self):
+        return self.size
+
+    def is_empty(self):
+        return self.size == 0
+
+    def enqueue(self, data):
+        """ Добавление в конец списка """
+        new_node = Node(data)
+        if self.is_empty():
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next_node = new_node
+            self.tail = new_node
+        self.size += 1
+
+    def dequeue(self):
+        """ Удаление из списка """
+        if self.is_empty():
+            raise Exception("Список пуст")
+        data = self.head.data
 
 # код тестирования
 class TestStack(unittest.TestCase):
@@ -49,6 +79,24 @@ class TestStack(unittest.TestCase):
     def test_empty_stack(self):
         self.assertIsNone(self.stack.pop())
         self.assertIsNone(self.stack.top)
+
+class TestQueue(unittest.TestCase):
+    def test_enqueue(self):
+        queue = Queue()
+        queue.enqueue(1)
+        self.assertEqual(queue.head.data, 1)
+        self.assertEqual(queue.tail.data, 1)
+        queue.enqueue(2)
+        self.assertEqual(queue.tail.data, 2)
+
+    def test_dequeue(self):
+        queue = Queue()
+        queue.enqueue(1)
+        queue.enqueue(2)
+        self.assertEqual(queue.dequeue(), 1)
+        self.assertEqual(queue.dequeue(), 2)
+        with self.assertRaises(Exception):
+            queue.dequeue()
 
 if __name__ == "__main__":
     unittest.main()
