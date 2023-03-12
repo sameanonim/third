@@ -29,7 +29,13 @@ class Queue:
         self.size += 1
 
     def dequeue(self):
-        """ Удаление из списка """
+        """ Удаление из начала списка """
         if self.is_empty():
-            raise Exception("Список пуст")
-        data = self.head.data
+            return None
+        else:
+            removed_node = self.head
+            self.head = self.head.next_node
+            self.size -= 1
+            if self.is_empty():
+                self.tail = None
+            return removed_node.data

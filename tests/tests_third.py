@@ -2,7 +2,6 @@ import unittest
 from third import Node, Stack
 from custom_queue import Queue
 
-# код тестирования
 class TestStack(unittest.TestCase):
     def setUp(self):
         self.stack = Stack()
@@ -28,22 +27,46 @@ class TestStack(unittest.TestCase):
         self.assertEqual(self.stack.pop(), None)
 
 class TestQueue(unittest.TestCase):
+    def setUp(self):
+        self.queue = Queue()
+    
     def test_enqueue(self):
-        queue = Queue()
-        queue.enqueue(1)
-        self.assertEqual(queue.head.data, 1)
-        self.assertEqual(queue.tail.data, 1)
-        queue.enqueue(2)
-        self.assertEqual(queue.tail.data, 2)
-
+        self.queue.enqueue(1)
+        self.assertEqual(self.queue.head.data, 1)
+        self.assertEqual(self.queue.tail.data, 1)
+        self.assertEqual(self.queue.size, 1)
+        
+        self.queue.enqueue(2)
+        self.assertEqual(self.queue.head.data, 1)
+        self.assertEqual(self.queue.tail.data, 2)
+        self.assertEqual(self.queue.size, 2)
+        
+        self.queue.enqueue(3)
+        self.assertEqual(self.queue.head.data, 1)
+        self.assertEqual(self.queue.tail.data, 3)
+        self.assertEqual(self.queue.size, 3)
+        
     def test_dequeue(self):
-        queue = Queue()
-        queue.enqueue(1)
-        queue.enqueue(2)
-        self.assertEqual(queue.dequeue(), 1)
-        self.assertEqual(queue.dequeue(), 2)
-        with self.assertRaises(Exception):
-            queue.dequeue()
+        self.assertIsNone(self.queue.dequeue())
+        
+        self.queue.enqueue(1)
+        self.assertEqual(self.queue.dequeue(), 1)
+        self.assertIsNone(self.queue.head)
+        self.assertIsNone(self.queue.tail)
+        self.assertEqual(self.queue.size, 0)
+        
+        self.queue.enqueue(1)
+        self.queue.enqueue(2)
+        self.assertEqual(self.queue.dequeue(), 1)
+        self.assertEqual(self.queue.head.data, 2)
+        self.assertEqual(self.queue.tail.data, 2)
+        self.assertEqual(self.queue.size, 1)
+        
+        self.queue.enqueue(3)
+        self.assertEqual(self.queue.dequeue(), 2)
+        self.assertEqual(self.queue.head.data, 3)
+        self.assertEqual(self.queue.tail.data, 3)
+        self.assertEqual(self.queue.size, 1)
 
 if __name__ == "__main__":
     unittest.main()
