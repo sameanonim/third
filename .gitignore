@@ -2,3 +2,6 @@
 /.venv
 /htmlcov
 /poetry.lock
+/.idea
+/__pycache__
+.coverage
