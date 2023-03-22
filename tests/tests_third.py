@@ -98,11 +98,9 @@ class TestLinkedList(unittest.TestCase):
         self.ll.insert_at_end(3)
         self.assertEqual(self.ll.head.data, 1)
         self.assertEqual(self.ll.tail.data, 3)
-
-    def test_print_ll(self):
-        self.ll.insert_beginning(1)
-        self.ll.insert_beginning(2)
-        self.ll.insert_beginning(3)
+        
+    def test_get_data_by_id(self):
+        self.assertEqual(self.ll.get_data_by_id(4), None)
 
 if __name__ == "__main__":
     unittest.main()
